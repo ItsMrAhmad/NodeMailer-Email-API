@@ -1,0 +1,38 @@
+{
+  "name": "vacant-cassini",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@vitalets/google-translate-api": "^9.2.1",
+    "compromise": "^14.15.0",
+    "compromise-sentences": "^0.3.0",
+    "cors": "^2.8.6",
+    "docx": "^9.6.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "google-translate-api-x": "^10.7.2",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.3",
+    "md-to-pdf": "^5.2.5",
+    "natural": "^8.1.1",
+    "nodemailer": "^8.0.5",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^5.7.284",
+    "pdfkit": "^0.18.0",
+    "react-facebook-login": "^4.1.1"
+  },
+  "devDependencies": {
+    "marked": "^18.0.0",
+    "nodemon": "^3.1.14",
+    "puppeteer": "^24.40.0"
+  }
+}

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodemailer Dispatcher Pro — Email Control Suite</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Top Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Nodemailer Dispatcher <span>PRO</span></h1>
+                    <p>Express SMTP Mail Delivery Suite</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <div class="status-indicator active" id="serverStatusIndicator">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text" id="statusText">Backend Connected (Port 3000)</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout Grid -->
+        <main class="dashboard-grid">
+            <!-- Left Form Panel -->
+            <section class="card form-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-sliders"></i> Message Configurator</h2>
+                    <div class="template-selector-wrapper">
+                        <label for="templateSelect"><i class="fa-solid fa-wand-magic-sparkles"></i> Preset:</label>
+                        <select id="templateSelect" class="input-select">
+                            <option value="custom">-- Custom Message --</option>
+                            <option value="boss">Boss Check-in</option>
+                            <option value="security">Security Alert</option>
+                            <option value="meeting">Meeting Schedule</option>
+                            <option value="welcome">Welcome Greeting</option>
+                        </select>
+                    </div>
+                </div>
+
+                <form id="emailForm" onsubmit="return false;">
+                    <!-- Sender Configuration -->
+                    <div class="form-section">
+                        <h3 class="section-title"><i class="fa-solid fa-user-gear"></i> Sender Details</h3>
+                        <div class="form-group">
+                            <label for="senderName">
+                                Sender Display Name
+                                <span class="tooltip-icon" title="This is the name receivers will see in their inbox header"><i class="fa-solid fa-circle-info"></i></span>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-user input-icon"></i>
+                                <input type="text" id="senderName" class="form-input" placeholder="e.g. Your boss, Support Team, John Doe" value="Your boss">
+                            </div>
+                        </div>
+                        <div class="authenticated-pill">
+                            <i class="fa-solid fa-lock"></i> Authenticated SMTP Sender: <strong>itsmrahmadasghar@gmail.com</strong>
+                        </div>
+                    </div>
+
+                    <!-- Recipient Configuration -->
+                    <div class="form-section">
+                        <h3 class="section-title"><i class="fa-solid fa-envelope-open-text"></i> Target Recipient</h3>
+                        <div class="form-group">
+                            <label for="toEmail">Receiver Email Address <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-at input-icon"></i>
+                                <input type="email" id="toEmail" class="form-input" placeholder="recipient@example.com" value="itsmrahmadasghar@gmail.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message Payload -->
+                    <div class="form-section">
+                        <h3 class="section-title"><i class="fa-solid fa-pen-to-square"></i> Content Payload</h3>
+                        <div class="form-group">
+                            <label for="subject">Email Subject <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-heading input-icon"></i>
+                                <input type="text" id="subject" class="form-input" placeholder="Enter subject line..." value="Project Status Update" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-with-actions">
+                                <label for="messageBody">Message Body <span class="required">*</span></label>
+                                <div class="format-toggle">
+                                    <button type="button" class="toggle-btn active" id="btnPlainText"><i class="fa-solid fa-font"></i> Plain Text</button>
+                                    <button type="button" class="toggle-btn" id="btnHtml"><i class="fa-solid fa-code"></i> HTML</button>
+                                </div>
+                            </div>
+                            <textarea id="messageBody" class="form-textarea" rows="4" placeholder="Type your email body content here..." required>Hello! This is a test email sent from the Nodemailer Dispatcher Pro dashboard.</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Dispatch Controls -->
+                    <div class="form-section">
+                        <h3 class="section-title"><i class="fa-solid fa-rocket"></i> Dispatch Rate & Quantity</h3>
+                        <div class="grid-2col">
+                            <div class="form-group">
+                                <label for="emailCount">
+                                    Repeat Count
+                                    <span class="badge badge-accent">Max 10</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-hashtag input-icon"></i>
+                                    <input type="number" id="emailCount" class="form-input" min="1" max="10" value="1">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sendDelay">Delay Between Sends</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-stopwatch input-icon"></i>
+                                    <select id="sendDelay" class="form-input input-select">
+                                        <option value="1">1 Second</option>
+                                        <option value="2">2 Seconds</option>
+                                        <option value="3" selected>3 Seconds</option>
+                                        <option value="5">5 Seconds</option>
+                                        <option value="10">10 Seconds</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" id="btnSend" class="btn btn-primary">
+                            <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> Dispatch Email(s)</span>
+                            <span class="spinner hidden"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                        </button>
+                        <button type="button" id="btnReset" class="btn btn-secondary">
+                            <i class="fa-solid fa-rotate-left"></i> Reset
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Execution Dashboard Panel -->
+            <section class="card console-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-terminal"></i> Live Dispatch Console</h2>
+                    <div class="console-actions">
+                        <button type="button" id="btnClearLogs" class="btn-icon" title="Clear Console Logs">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Overview Cards -->
+                <div class="stats-bar">
+                    <div class="stat-box">
+                        <span class="stat-label">Total Jobs</span>
+                        <span class="stat-value" id="statTotal">0</span>
+                    </div>
+                    <div class="stat-box stat-success">
+                        <span class="stat-label">Sent</span>
+                        <span class="stat-value" id="statSuccess">0</span>
+                    </div>
+                    <div class="stat-box stat-error">
+                        <span class="stat-label">Failed</span>
+                        <span class="stat-value" id="statFailed">0</span>
+                    </div>
+                    <div class="stat-box stat-progress">
+                        <span class="stat-label">Progress</span>
+                        <span class="stat-value" id="statProgress">0%</span>
+                    </div>
+                </div>
+
+                <!-- Progress Fill Bar -->
+                <div class="progress-bar-container">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+
+                <!-- Console Log Output Window -->
+                <div class="console-window" id="consoleWindow">
+                    <div class="log-entry system">
+                        <span class="timestamp">[System initialized]</span>
+                        <span class="log-msg">Nodemailer Dispatcher Console active. Connected to endpoint <code>/api/send-email</code>. Ready to dispatch.</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
